@@ -23,8 +23,12 @@ app.use(session({
 
 
 app.get('/', function(req, res) { 
-	if(req.session.logged_in) {
-		
+	if(req.session.logged_in and req.session.logged_in===true) {
+		if(req.session.is_admin) {
+			res.render('admin', {session: req.session});
+		} else {
+			res.render('player', {session: req.session});
+		}
 	} else {
 		res.render('login', { title: 'Hey', message: 'Hello there!' });
 	}

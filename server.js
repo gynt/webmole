@@ -24,9 +24,29 @@ app.use(session({
   
 }))
 
-app.get('/:round/view', function(req, res) {
+app.get('/players/view', function(req, res) {
 	if(req.session.is_admin) {
-		res.send();
+		res.send({data:game.players});
+	}
+})
+
+app.post('/players/edit', function(req, res) {
+	if(req.session.is_admin) {
+		game.players=req.body;
+		res.send({status:"ok",message:"edited",code:9});
+	}
+})
+
+app.get('/:round/:part/view', function(req, res) {
+	if(req.session.is_admin) {
+		res.send({data:game.rounds[req.params.round][req.params.part]});
+	}
+})
+
+app.post('/:round/:part/edit', function(req, res) {
+	if(req.session.is_admin) {
+		game.rounds[req.params.round][req.params.part]=req.body;
+		res.send({status:"ok",message:"edited",code:9});
 	}
 })
 

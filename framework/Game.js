@@ -3,6 +3,7 @@ const Round = require('./Round');
 function Game() {
   this.rounds=new Array(new Round());
   this.players=new Array();
+  this.current_round=None;
 }
 
 Game.prototype.pickMole = function() {

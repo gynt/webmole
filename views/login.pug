@@ -6,12 +6,15 @@ block append styles
 			background-color: #0f0f0f; 
 		}
 
+block append scripts
+	script(src="scripts/login.js")
+
 block content
-	form(method='POST', action='login(this)')
+	form
 		div.form-group
-            label(for='name') Name:
-            input#name.form-control(type='text', placeholder='your name' name='name')
-		div.form-group
-            label(for='pw') Password:
-            input#pw.form-control(type='password' name='password')
+			label(for='name') Name:
+			input#name.form-control(type='text', placeholder='your name' name='username')
+			div.form-group
+			label(for='pw') Password:
+			input#pw.form-control(type='password' name='password')
 		button.btn.btn-primary(type='submit') Log in

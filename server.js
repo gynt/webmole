@@ -70,6 +70,10 @@ app.get('/dashboard', function(req, res) {
 
 app.post('/next', function(req, res) {
 	if(req.session.logged_in===true) {
+		if(game.current_round===undefined) {
+			res.render('no-exam');
+			return;
+		}
 		if(req.session.page===undefined) {
 			req.session.page=0;
 			game.current_round.exam.results[req.session.player] = [];
@@ -82,7 +86,7 @@ app.post('/next', function(req, res) {
 		if(req.session.page >= game.current_round.exam.items.length) {
 			res.render('exam-finished', {});
 		} else {
-		res.render('items/'+game.current_round.exam[req.session.page].type.toString(), game.current_round.exam[req.session.page]);
+			res.render('items/'+game.current_round.exam[req.session.page].type.toString(), game.current_round.exam[req.session.page]);
 		}
 	} else {
 		res.send({status:"error", message:"not logged in", code:1});

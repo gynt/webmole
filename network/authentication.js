@@ -4,8 +4,6 @@ function Handler(router) {
     this.router=router;
     var self = this;
     this.onLogin = function(req, res) {
-        console.log(self.admin.username);
-        console.log(self.admin.password);
         if(req.body.username==self.admin.username && req.body.password==self.admin.password) {
             req.session.logged_in=true;
             req.session.is_admin=true;

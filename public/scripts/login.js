@@ -10,13 +10,11 @@ function serialize() {
 
 $(document).ready(function() {
     $("form").submit(function(e){
-        $.ajax({
-            type: "POST",
+        jsonPostRequest({
             url: "/session/login",
             data: JSON.stringify(serialize()),
-            success: function(){},
-            dataType: "json",
-            contentType : "application/json"
+        }, function(data) {
+            alert(data);
         });
         e.preventDefault();
         e.stopPropagation();

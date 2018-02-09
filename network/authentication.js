@@ -7,7 +7,8 @@ function Handler(router) {
         if(req.body.username==self.admin.username && req.body.password==self.admin.password) {
             req.session.logged_in=true;
             req.session.is_admin=true;
-            res.send({status:"welcome",message:"welcome admin!", code:5});
+            //res.redirect('/game');
+            res.send({status:"ok",message:"welcome admin!", code:5});
         } else {
             var users = self.onGetUsers();
             var candidates = users.filter((el) => el.username == req.body.username);
@@ -20,6 +21,7 @@ function Handler(router) {
                     req.session.logged_in=true;
                     req.session.is_admin=false;
                     req.session.username = req.body.username;
+                    req.session.player = req.body.username;
                     res.send({status:"welcome",message:"welcome player!",code:6});
                 }
             }
@@ -46,7 +48,7 @@ Handler.prototype.isAdmin = function(req) {
     return this.isLoggedIn(req) && req.session.is_admin===true;
 }
 
-Handler.prototype.onGetUsers = function() {
+Handler.prototype.getUsers = function() {
     return this.users;
 }
 

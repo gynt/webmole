@@ -1,4 +1,5 @@
 function Handler(router) {
+    this.game=undefined;
     this.router = router;
     var self = this;
 
@@ -15,14 +16,14 @@ function Handler(router) {
     });
 
     this.saveGame = function(req, res) {
-        self.getEngine().saveGame(self.getGame(), req.params.name || "game.json");
+        self.getEngine().saveGame(self.getGame(), req.body.name || "game.json");
         self.ok(res);
     }
     this.router.post("/save", this.saveGame);
 
     this.loadGame = function(req, res) {
         try {
-            self.setGame(self.getEngine().loadGame(req.params.name || "game.json"));
+            self.setGame(self.getEngine().loadGame(req.body.name || "game.json"));
             self.ok(res);
         } catch(e) {
             res.send({status:"error",message:e});
@@ -84,11 +85,11 @@ function Handler(router) {
 }
 
 Handler.prototype.setGame = function(game) {
-
+    this.game=game;
 }
 
 Handler.prototype.getGame = function () {
-    return undefined;
+    return this.game;
 }
 
 Handler.prototype.getEngine = function() {

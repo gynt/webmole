@@ -7,11 +7,11 @@ module.exports.Round = require('./Round')
 module.exports.Game = require('./Game')
 
 module.exports.loadGame = function(filename) {
-    return JSON.parse(fs.readFileSync(filename));
+    return JSON.parse(fs.readFileSync('./games/'+filename));
 }
 
 module.exports.saveGame = function(game, filename) {
-    fs.writeFile(filename, JSON.stringify(game), (err) => {
+    fs.writeFile('./games/'+filename, JSON.stringify(game), (err) => {
         if(err) throw err;
     })
 }
